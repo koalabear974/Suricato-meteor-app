@@ -1,0 +1,68 @@
+/*
+  Global CSS file
+*/
+*{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+::-webkit-input-placeholder {
+  color:#aaa;
+  font-weight: 300;
+}
+::-moz-placeholder {
+  color:#aaa;
+  font-weight: 300;
+}
+:-ms-input-placeholder {
+  color:#aaa;
+  font-weight: 300;
+}
+input:-moz-placeholder {
+  color:#aaa;
+  font-weight: 300;
+}
+
+:root {
+  --color-white:           #fff;
+  --color-grey-lighter:    #eee;
+  --color-grey-light:      #ccc;
+  --color-grey:            #aaa;
+  --color-grey-dark:       #888;
+  --color-grey-darker:     #666;
+  --color-grey-very-dark:  #444;
+  --color-black:           #000;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: var(--color-white);
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+}
+
+a, a:active, a:hover, a:visited {
+  text-decoration: none;
+}
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /*overflow: hidden;*/
+}
+
+.main__container {
+  display: flex;
+  /*min-height: 100vh;*/
+  flex: 1;
+}
+
