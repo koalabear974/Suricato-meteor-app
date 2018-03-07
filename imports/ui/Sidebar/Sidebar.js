@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dropdown, Button } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import './Sidebar.css'

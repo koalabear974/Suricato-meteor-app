@@ -2,8 +2,7 @@
   align-items: center;
   background-color: #aaa;
   display: flex;
-  flex: 1 1 100%;
-  height: 70px;
+  flex: 0 0 70px;
   align-items: center;
   justify-content: center;
   position: relative;

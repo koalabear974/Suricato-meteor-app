@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import './Asset.css'
@@ -30,8 +31,8 @@ class AssetList extends Component {
     }
     return (
       <div className="AssetList">
-        <Button className="AssetList__add-button" content={'Create asset'} onClick={this.handleAddItem} />
         Asset LIST
+        <Button className="AssetList__add-button" content={'Create asset'} onClick={this.handleAddItem} />
       </div>
     );
   }

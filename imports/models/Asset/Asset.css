@@ -1,0 +1,11 @@
+.AssetList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.AssetList__add-button {
+  flex: 0 0 70px;
+  width: 100%;
+}

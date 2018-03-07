@@ -18,8 +18,10 @@ class App extends Component {
     this.state = {
       isMounted: false,
       itemTypes: this.props.itemTypes,
-      currentItemType: null,
-      currentItemComponents: null,
+      // currentItemType: null,
+      // currentItemComponents: null,
+      currentItemType: { key: 1, text: 'Asset',    value: 'Asset'    }, // As default for now
+      currentItemComponents: { key: 1, listComponent: 'AssetList',    mainComponent: 'AssetIndex',    showComponent: 'AssetShow' },
       currentItemId: "",
     }
 
