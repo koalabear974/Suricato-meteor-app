@@ -17,9 +17,10 @@ class AssetEdit extends Component {
       errors: [],
     }
 
+    console.log("edit -- ",this.props.itemId, !!this.props.itemId);
+
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    console.log(Assets);
   }
 
   componentDidMount() {
@@ -42,10 +43,18 @@ class AssetEdit extends Component {
   handleSubmit (e, data) {
     e.preventDefault();
     if(this.state.isEditObject) {
+      // TODO: make is work
+      Assets.update(this.state.asset, (error, result) => {
+        if(!error) {
+          this.props.handleSuccess(result);
+        } else {
+          console.log(error);
+          this.setState({errors: error.invalidKeys})
+        }
+      });
     } else {
       Assets.insert(this.state.asset, (error, result) => {
         if(!error) {
-          // console.log(result); == id
           this.props.handleSuccess(result);
         } else {
           console.log(error);
@@ -71,8 +80,20 @@ class AssetEdit extends Component {
       <div className="AssetEdit">
         <h2>{ this.state.isEditObject? "Edit" : "Create" } asset</h2>
         <Form name="form" onSubmit={this.handleSubmit} onChange={this.handleChange} error={this.hasErrors()}>
-          <Form.Input name="name" fluid label='Name' placeholder='Name' error={this.hasErrors('name')}/>
-          <Form.TextArea name="description" label='Description' placeholder='Tell us more about the asset...' error={this.hasErrors('description')}/>
+          <Form.Input
+            name="name"
+            label='Name'
+            placeholder='Name'
+            value={this.state.asset.name}
+            error={this.hasErrors('name')}
+          />
+          <Form.TextArea
+            name="description"
+            label='Description'
+            placeholder='Tell us more about the asset...'
+            value={this.state.asset.description}
+            error={this.hasErrors('description')}
+          />
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>
@@ -89,6 +110,6 @@ class AssetEdit extends Component {
 
 export default withTracker(({itemId}) => {
   return {
-    asset: !!itemId ? Assets.find({itemId}).fetch() : Assets.initObject(),
+    asset: !!itemId ? Assets.findOne(itemId) : Assets.initObject(),
   };
 })(AssetEdit);

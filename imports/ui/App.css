@@ -33,3 +33,7 @@
   display: flex;
   color: rgba(134, 134, 134, 0.87);
 }
+
+.main-container__right-empty-icon {
+  width: 30px;
+}

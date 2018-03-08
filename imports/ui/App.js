@@ -19,17 +19,16 @@ class App extends Component {
     this.state = {
       isMounted: false,
       itemTypes: this.props.itemTypes,
-      // currentItemType: null,
-      // currentItemComponents: null,
-      currentItemType: { key: 1, text: 'Asset',    value: 'Asset'    }, // As default for now
-      currentItemComponents: { key: 1, listComponent: 'AssetList',    mainComponent: 'AssetIndex',    showComponent: 'AssetShow',    editComponent: 'AssetEdit'},
+      currentItemType: null,
+      currentItemComponents: null,
+      // currentItemType: { key: 1, text: 'Asset',    value: 'Asset'    }, // As default for now
+      // currentItemComponents: { key: 1, listComponent: 'AssetList',    mainComponent: 'AssetIndex',    showComponent: 'AssetShow',    editComponent: 'AssetEdit'},
       currentItemId: "",
       isItemEdit: false,
     }
 
     this.handleTypeChange  = this.handleTypeChange.bind(this)
     this.handleItemClick   = this.handleItemClick.bind(this)
-    this.handleEditClick   = this.handleEditClick.bind(this)
     this.handleEditSuccess = this.handleEditSuccess.bind(this)
     this.renderLeftComponent = this.renderLeftComponent.bind(this)
     this.renderRightComponent  = this.renderRightComponent.bind(this)
@@ -44,12 +43,8 @@ class App extends Component {
     this.setState({ currentItemType: type, currentItemId: "",  currentItemComponents: components });
   }
 
-  handleItemClick(event, data) {
-    // store currentItemId
-  }
-
-  handleEditClick(id = null) {
-    this.setState({ currentItemId: id || "", isItemEdit: true });
+  handleItemClick(id, isEdit = false) {
+    this.setState({ currentItemId: id || "", isItemEdit: isEdit });
   }
 
   handleEditSuccess(result) {
@@ -62,23 +57,26 @@ class App extends Component {
     if(!this.state.currentItemType) {
       return <div className="main-container__left-empty">Choose a item type to load data</div>
     } else {
-      const ListComponent = eval(this.state.currentItemComponents.listComponent)
-      return <ListComponent handleEditClick={this.handleEditClick} />
+      var ListComponent = eval(this.state.currentItemComponents.listComponent)
+      return <ListComponent handleItemClick={this.handleItemClick} />
     }
   }
 
   renderRightComponent() {
     if(!this.state.currentItemType) {
-      return <div className="main-container__right-empty">ICON</div>
+      return <div className="main-container__right-empty"><img className="main-container__right-empty-icon" src="/img/loading.GIF" /></div>
     } else {
       if(this.state.isItemEdit) {
-        const EditComponent = eval(this.state.currentItemComponents.editComponent)
+        var EditComponent = eval(this.state.currentItemComponents.editComponent)
+        console.log("RERENDER", this.state.currentItemId, this.state.isItemEdit);
+        // TODO: EDIT don't rerender on state change
         return <EditComponent itemId={this.state.currentItemId} handleSuccess={this.handleEditSuccess}/>
       }else if(this.state.currentItemId == "") {
-        const MainComponent = eval(this.state.currentItemComponents.mainComponent)
+        var MainComponent = eval(this.state.currentItemComponents.mainComponent)
         return <MainComponent />
       } else {
-        const ShowComponent = eval(this.state.currentItemComponents.showComponent)
+        // TODO: rerender work here !!
+        var ShowComponent = eval(this.state.currentItemComponents.showComponent)
         return <ShowComponent itemId={this.state.currentItemId} />
       }
     }

@@ -24,14 +24,16 @@ class AssetShow extends Component {
     }
     return (
       <div className="AssetShow">
-        Asset SHOWWWWWWWWWWWW
+        Asset SHOWWWWWWWWWWWW <br/>
+        {this.props.asset._id} <br/>
+        {this.props.asset.name}
       </div>
     );
   }
 }
 
-export default withTracker((itemId) => {
+export default withTracker(({itemId}) => {
   return {
-    asset: Assets.find({_id: itemId}).fetch(),
+    asset: !!itemId ? Assets.findOne(itemId) : Assets.initObject(),
   };
 })(AssetShow);

@@ -9,3 +9,25 @@
   flex: 0 0 40px;
   width: 100%;
 }
+
+.AssetList__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.AssetListItem {
+  display: flex;
+  flex: 0 0 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.AssetListItem:hover {
+  background-color: #f3f3f3;
+}
+
+.AssetListItem__name {
+  text-transform: capitalize;
+  flex: 1;
+}
+
