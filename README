@@ -1,4 +1,5 @@
 -- Suricato App --
 
 - Install meteor
+- Run `meteor npm install`
 - Run `meteor`

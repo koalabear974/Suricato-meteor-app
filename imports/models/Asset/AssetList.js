@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import './Asset.css'
 
-import { Assets } from '../../api/asset.js';
+import Assets from '../../api/asset.js';
 
 class AssetList extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class AssetList extends Component {
   }
 
   handleAddItem () {
-
+    this.props.handleEditClick(null)
   }
 
   render() {

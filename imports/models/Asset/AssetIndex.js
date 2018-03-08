@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import './Asset.css'
 
-import { Assets } from '../../api/asset.js';
+import Assets from '../../api/asset.js';
 
 class AssetIndex extends Component {
   constructor(props) {

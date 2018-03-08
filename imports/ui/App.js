@@ -8,6 +8,7 @@ import Sidebar from './Sidebar/Sidebar.js';
 import AssetList  from '../models/Asset/AssetList.js';
 import AssetIndex from '../models/Asset/AssetIndex.js';
 import AssetShow  from '../models/Asset/AssetShow.js';
+import AssetEdit  from '../models/Asset/AssetEdit.js';
 
 
 // App component - represents the whole app
@@ -21,13 +22,16 @@ class App extends Component {
       // currentItemType: null,
       // currentItemComponents: null,
       currentItemType: { key: 1, text: 'Asset',    value: 'Asset'    }, // As default for now
-      currentItemComponents: { key: 1, listComponent: 'AssetList',    mainComponent: 'AssetIndex',    showComponent: 'AssetShow' },
+      currentItemComponents: { key: 1, listComponent: 'AssetList',    mainComponent: 'AssetIndex',    showComponent: 'AssetShow',    editComponent: 'AssetEdit'},
       currentItemId: "",
+      isItemEdit: false,
     }
 
-    this.handleTypeChange = this.handleTypeChange.bind(this)
-    this.handleItemClick  = this.handleItemClick.bind(this)
-    this.renderLeftComponent  = this.renderLeftComponent.bind(this)
+    this.handleTypeChange  = this.handleTypeChange.bind(this)
+    this.handleItemClick   = this.handleItemClick.bind(this)
+    this.handleEditClick   = this.handleEditClick.bind(this)
+    this.handleEditSuccess = this.handleEditSuccess.bind(this)
+    this.renderLeftComponent = this.renderLeftComponent.bind(this)
     this.renderRightComponent  = this.renderRightComponent.bind(this)
   }
 
@@ -44,12 +48,22 @@ class App extends Component {
     // store currentItemId
   }
 
+  handleEditClick(id = null) {
+    this.setState({ currentItemId: id || "", isItemEdit: true });
+  }
+
+  handleEditSuccess(result) {
+    //TODO flash message
+    //TODO reload left board
+    this.setState({isItemEdit: false, currentItemId: result});
+  }
+
   renderLeftComponent() {
     if(!this.state.currentItemType) {
       return <div className="main-container__left-empty">Choose a item type to load data</div>
     } else {
       const ListComponent = eval(this.state.currentItemComponents.listComponent)
-      return <ListComponent />
+      return <ListComponent handleEditClick={this.handleEditClick} />
     }
   }
 
@@ -57,12 +71,15 @@ class App extends Component {
     if(!this.state.currentItemType) {
       return <div className="main-container__right-empty">ICON</div>
     } else {
-      if(this.state.currentItemId == "") {
+      if(this.state.isItemEdit) {
+        const EditComponent = eval(this.state.currentItemComponents.editComponent)
+        return <EditComponent itemId={this.state.currentItemId} handleSuccess={this.handleEditSuccess}/>
+      }else if(this.state.currentItemId == "") {
         const MainComponent = eval(this.state.currentItemComponents.mainComponent)
         return <MainComponent />
       } else {
         const ShowComponent = eval(this.state.currentItemComponents.showComponent)
-        return <ShowComponent />
+        return <ShowComponent itemId={this.state.currentItemId} />
       }
     }
   }

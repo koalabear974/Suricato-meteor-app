@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import './Asset.css'
 
-import { Assets } from '../../api/asset.js';
+import Assets from '../../api/asset.js';
 
 class AssetShow extends Component {
   constructor(props) {
@@ -24,14 +24,14 @@ class AssetShow extends Component {
     }
     return (
       <div className="AssetShow">
-        Asset Show
+        Asset SHOWWWWWWWWWWWW
       </div>
     );
   }
 }
 
-export default withTracker(() => {
+export default withTracker((itemId) => {
   return {
-    assets: Assets.find({id: this.props.id}).fetch(),
+    asset: Assets.find({_id: itemId}).fetch(),
   };
 })(AssetShow);
