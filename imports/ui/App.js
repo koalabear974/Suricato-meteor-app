@@ -49,7 +49,6 @@ class App extends Component {
 
   handleEditSuccess(result) {
     //TODO flash message
-    //TODO reload left board
     this.setState({isItemEdit: false, currentItemId: result});
   }
 
@@ -68,7 +67,6 @@ class App extends Component {
     } else {
       if(this.state.isItemEdit) {
         var EditComponent = eval(this.state.currentItemComponents.editComponent)
-        console.log("RERENDER", this.state.currentItemId, this.state.isItemEdit);
         return <EditComponent itemId={this.state.currentItemId} handleSuccess={this.handleEditSuccess}/>
       }else if(this.state.currentItemId == "") {
         var MainComponent = eval(this.state.currentItemComponents.mainComponent)

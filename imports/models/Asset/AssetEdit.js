@@ -43,29 +43,23 @@ class AssetEdit extends Component {
 
   handleSubmit (e, data) {
     e.preventDefault();
+    let callbackFunc = (error, result) => {
+      if(!error) {
+        this.props.handleSuccess(this.state.isEditObject ? this.props.itemId : result);
+      } else {
+        console.log(error);
+        this.setState({errors: error.invalidKeys})
+      }
+    }
+
     if(this.state.isEditObject) {
-      // TODO: make is work
-      Assets.update(this.state.asset, (error, result) => {
-        if(!error) {
-          this.props.handleSuccess(result);
-        } else {
-          console.log(error);
-          this.setState({errors: error.invalidKeys})
-        }
-      });
+      Assets.update(this.state.asset._id, { $set: _.omit(this.state.asset, '_id')}, callbackFunc);
     } else {
-      Assets.insert(this.state.asset, (error, result) => {
-        if(!error) {
-          this.props.handleSuccess(result);
-        } else {
-          console.log(error);
-          this.setState({errors: error.invalidKeys})
-        }
-      });
+      Assets.insert(this.state.asset, callbackFunc);
     }
   }
 
-  hasErrors(name = "null") {
+  hasErrors(name = null) {
     if(name) {
       return !!_.find(this.state.errors, (a) => { return a.name == name })
     } else {
@@ -95,7 +89,7 @@ class AssetEdit extends Component {
             value={this.state.asset.description || ""}
             error={this.hasErrors('description')}
           />
-          <Form.Button>Submit</Form.Button>
+          <Form.Button className="AssetEdit__submit">Submit</Form.Button>
         </Form>
       </div>
     );

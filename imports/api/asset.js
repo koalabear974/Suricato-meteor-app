@@ -14,10 +14,10 @@ class AssetsCollection extends Mongo.Collection {
   //   const result = super.insert(ourDoc, callback);
   //   return result;
   // }
-  update(selector, modifier) {
-    const result = super.update(selector, modifier);
-    return result;
-  }
+  // update(selector, modifier) {
+  //   const result = super.update(selector, modifier);
+  //   return result;
+  // }
   remove(selector) {
     const assets = this.find(selector).fetch();
     const result = super.remove(selector);
@@ -32,7 +32,7 @@ export default Assets;
 // Deny all client-side updates since we will be using methods to manage this collection
 Assets.deny({
   // insert() { return true; },
-  update() { return true; },
+  // update() { return true; },
   remove() { return true; },
 });
 
