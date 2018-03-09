@@ -16,6 +16,7 @@ class AssetList extends Component {
     }
 
     this.handleAddItem = this.handleAddItem.bind(this)
+    this.renderItemList = this.renderItemList.bind(this)
   }
 
   componentDidMount() {
@@ -26,24 +27,29 @@ class AssetList extends Component {
     this.props.handleItemClick(null, true)
   }
 
+  renderItemList() {
+    var that = this;
+    var itemList = this.props.assets.map(function(asset){
+      return <AssetListItem key={asset._id} asset={asset} isActive={that.props.currentItemId == asset._id} handleItemClick={that.props.handleItemClick} />
+    })
+
+    return itemList
+  }
+
+
   render() {
     if(!this.state.isMounted) {
       return <p>LOADING</p>
     }
 
-    var that = this;
-    var itemList = this.props.assets.map(function(asset){
-      return <AssetListItem key={asset._id} asset={asset} handleItemClick={that.props.handleItemClick} />
-    })
-
     return (
       <div className="AssetList">
         <div className="AssetList__container">
           {
-            itemList
+            this.renderItemList()
           }
         </div>
-        <Button className="AssetList__add-button" content={'Create asset'} onClick={this.handleAddItem} />
+        <Button className="AssetList__add-button" onClick={this.handleAddItem}><i className='plus icon' /> Create asset</Button>
       </div>
     );
   }

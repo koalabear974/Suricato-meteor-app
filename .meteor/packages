@@ -26,3 +26,5 @@ mdg:validation-error
 aldeed:simple-schema
 aldeed:collection2
 allow-deny
+semantic:ui-icon
+semantic:ui

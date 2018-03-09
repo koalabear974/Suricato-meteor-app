@@ -58,7 +58,7 @@ class App extends Component {
       return <div className="main-container__left-empty">Choose a item type to load data</div>
     } else {
       var ListComponent = eval(this.state.currentItemComponents.listComponent)
-      return <ListComponent handleItemClick={this.handleItemClick} />
+      return <ListComponent currentItemId={this.state.currentItemId} handleItemClick={this.handleItemClick} />
     }
   }
 
@@ -69,13 +69,11 @@ class App extends Component {
       if(this.state.isItemEdit) {
         var EditComponent = eval(this.state.currentItemComponents.editComponent)
         console.log("RERENDER", this.state.currentItemId, this.state.isItemEdit);
-        // TODO: EDIT don't rerender on state change
         return <EditComponent itemId={this.state.currentItemId} handleSuccess={this.handleEditSuccess}/>
       }else if(this.state.currentItemId == "") {
         var MainComponent = eval(this.state.currentItemComponents.mainComponent)
         return <MainComponent />
       } else {
-        // TODO: rerender work here !!
         var ShowComponent = eval(this.state.currentItemComponents.showComponent)
         return <ShowComponent itemId={this.state.currentItemId} />
       }

@@ -9,7 +9,6 @@ import Assets from '../../api/asset.js';
 class AssetEdit extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isMounted: false,
       isEditObject: !!this.props.itemId,
@@ -17,14 +16,16 @@ class AssetEdit extends Component {
       errors: [],
     }
 
-    console.log("edit -- ",this.props.itemId, !!this.props.itemId);
-
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
     this.setState({ isMounted: true });
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({asset: !!nextProps.itemId ? Assets.findOne(nextProps.itemId) : Assets.initObject()})
   }
 
   handleChange (e) {
@@ -84,14 +85,14 @@ class AssetEdit extends Component {
             name="name"
             label='Name'
             placeholder='Name'
-            value={this.state.asset.name}
+            value={this.state.asset.name || ""}
             error={this.hasErrors('name')}
           />
           <Form.TextArea
             name="description"
             label='Description'
             placeholder='Tell us more about the asset...'
-            value={this.state.asset.description}
+            value={this.state.asset.description || ""}
             error={this.hasErrors('description')}
           />
           <Form.Button>Submit</Form.Button>
