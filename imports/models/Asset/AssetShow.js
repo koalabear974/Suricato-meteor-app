@@ -24,9 +24,17 @@ class AssetShow extends Component {
     }
     return (
       <div className="AssetShow">
-        Asset SHOWWWWWWWWWWWW <br/>
-        {this.props.asset._id} <br/>
-        {this.props.asset.name}
+        <h2 className="AssetShow__name">{this.props.asset.name}</h2>
+        <div className="AssetShow__description">
+          <label className="AssetShow__label">Description</label>
+          {this.props.asset.descrption}
+        </div>
+        <div className="AssetShow__times">
+          <label className="AssetShow__label">Created At</label>
+          {this.props.asset.createdAt ? this.props.asset.createdAt.toString() : ""}
+          <label className="AssetShow__label">Updated At</label>
+          {this.props.asset.updatedAt ? this.props.asset.updatedAt.toString() : ""}
+        </div>
       </div>
     );
   }

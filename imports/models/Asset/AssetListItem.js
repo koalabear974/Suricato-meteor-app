@@ -17,7 +17,7 @@ export default class AssetListItem extends Component {
         <div className="AssetListItem__name">
           {this.props.asset.name}
         </div>
-        <Button className="AssetListItem__edit-button" onClick={onClickEditFunc}>
+        <Button className="AssetListItem__edit-button" icon onClick={onClickEditFunc}>
           <i className="edit icon" />
         </Button>
       </div>

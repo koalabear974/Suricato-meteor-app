@@ -35,26 +35,14 @@
   flex: 1;
 }
 
-.AssetListItem__edit-button {
-  padding: 10px !important;
-}
-
-.AssetListItem__edit-button i.icon {
-  margin: 0 !important;
-  margin-left: 2px !important;
-}
-
-.AssetEdit {
+.AssetEdit, .AssetShow {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 20px;
 }
 
-.AssetEdit__submit {
-  text-align: right;
-}
-
-.AssetEdit__submit button{
-  margin: 0 !important;
+.AssetEdit__buttons-container {
+  display: flex;
+  justify-content: space-between;
 }
