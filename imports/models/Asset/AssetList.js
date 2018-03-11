@@ -61,6 +61,6 @@ class AssetList extends Component {
 
 export default withTracker(() => {
   return {
-    assets: Assets.find({}).fetch(),
+    assets: Assets.find({}, {sort: {updatedAt: -1}}).fetch(),
   };
 })(AssetList);

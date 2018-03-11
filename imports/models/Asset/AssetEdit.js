@@ -28,7 +28,11 @@ class AssetEdit extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState({asset: !!nextProps.itemId ? Assets.findOne(nextProps.itemId) : Assets.initObject()})
+    let isEdit = !!nextProps.itemId
+    this.setState({
+      asset: isEdit ? Assets.findOne(nextProps.itemId) : Assets.initObject(),
+      isEditObject: isEdit,
+    })
   }
 
   handleChange (e) {
