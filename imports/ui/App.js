@@ -47,9 +47,9 @@ class App extends Component {
     this.setState({ currentItemId: id || "", isItemEdit: isEdit });
   }
 
-  handleEditSuccess(result) {
+  handleEditSuccess(returnedId) {
     //TODO flash message
-    this.setState({isItemEdit: false, currentItemId: result});
+    this.setState({isItemEdit: false, currentItemId: returnedId || ""});
   }
 
   renderLeftComponent() {

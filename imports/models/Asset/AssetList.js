@@ -28,6 +28,10 @@ class AssetList extends Component {
   }
 
   renderItemList() {
+    if(this.props.assets.length == 0){
+      return <div className="main-container__left-empty">No assets yet</div>
+    }
+
     var that = this;
     var itemList = this.props.assets.map(function(asset){
       return <AssetListItem key={asset._id} asset={asset} isActive={that.props.currentItemId == asset._id} handleItemClick={that.props.handleItemClick} />

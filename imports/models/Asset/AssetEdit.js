@@ -12,12 +12,15 @@ class AssetEdit extends Component {
     this.state = {
       isMounted: false,
       isEditObject: !!this.props.itemId,
+      isDeleteObject: false,
       asset: this.props.asset,
       errors: [],
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.callbackFunc = this.callbackFunc.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -41,21 +44,33 @@ class AssetEdit extends Component {
     this.setState({asset: asset, errors: errors})
   }
 
+  callbackFunc (error, result) {
+    if(!error) {
+      let returnId = this.state.isDeleteObject ? "" :
+                     this.state.isEditObject ? this.props.itemId : result
+      this.props.handleSuccess(returnId);
+    } else {
+      console.log("Callback function Error:", error);
+      this.setState({errors: error.invalidKeys})
+    }
+  }
+
   handleSubmit (e, data) {
     e.preventDefault();
-    let callbackFunc = (error, result) => {
-      if(!error) {
-        this.props.handleSuccess(this.state.isEditObject ? this.props.itemId : result);
-      } else {
-        console.log(error);
-        this.setState({errors: error.invalidKeys})
-      }
-    }
 
     if(this.state.isEditObject) {
-      Assets.update(this.state.asset._id, { $set: _.omit(this.state.asset, '_id')}, callbackFunc);
+      Assets.update(this.state.asset._id, { $set: _.omit(this.state.asset, '_id')}, this.callbackFunc);
     } else {
-      Assets.insert(this.state.asset, callbackFunc);
+      Assets.insert(this.state.asset, this.callbackFunc);
+    }
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+
+    if (!!this.state.asset._id) {
+      this.setState({isDeleteObject: true})
+      Assets.remove(this.state.asset._id, this.callbackFunc);
     }
   }
 
@@ -68,9 +83,12 @@ class AssetEdit extends Component {
   }
 
   render() {
-    if(!this.state.isMounted) {
+    if(!this.state.isMounted || this.state.isDeleteObject) {
       return <p>LOADING</p>
     }
+
+    var deleteButton = this.state.isEditObject ? <Button className="AssetEdit__delete negative" onClick={this.handleDelete}>Delete object</Button> : null;
+
     return (
       <div className="AssetEdit">
         <h2>{ this.state.isEditObject? "Edit" : "Create" } asset</h2>
@@ -89,7 +107,10 @@ class AssetEdit extends Component {
             value={this.state.asset.description || ""}
             error={this.hasErrors('description')}
           />
-          <Form.Button className="AssetEdit__submit">Submit</Form.Button>
+          <div className="AssetEdit__buttons-container">
+            { deleteButton }
+            <Form.Button className="AssetEdit__submit primary">Submit</Form.Button>
+          </div>
         </Form>
       </div>
     );

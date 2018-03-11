@@ -18,11 +18,11 @@ class AssetsCollection extends Mongo.Collection {
   //   const result = super.update(selector, modifier);
   //   return result;
   // }
-  remove(selector) {
-    const assets = this.find(selector).fetch();
-    const result = super.remove(selector);
-    return result;
-  }
+  // remove(selector) {
+  //   const assets = this.find(selector).fetch();
+  //   const result = super.remove(selector);
+  //   return result;
+  // }
 }
 
 const Assets = new AssetsCollection('assets');
@@ -33,7 +33,7 @@ export default Assets;
 Assets.deny({
   // insert() { return true; },
   // update() { return true; },
-  remove() { return true; },
+  // remove() { return true; },
 });
 
 Assets.schema = new SimpleSchema({
