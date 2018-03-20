@@ -92,10 +92,11 @@ class AssetEdit extends Component {
     }
 
     var deleteButton = this.state.isEditObject ? <Button className="AssetEdit__delete negative" onClick={this.handleDelete}>Delete object</Button> : null;
+    var actionString = this.state.isEditObject? "Edit" : "Create"
 
     return (
       <div className="AssetEdit">
-        <h2>{ this.state.isEditObject? "Edit" : "Create" } asset</h2>
+        <h2>{ actionString } asset</h2>
         <Form name="form" onSubmit={this.handleSubmit} onChange={this.handleChange} error={this.hasErrors()}>
           <Form.Input
             name="name"
@@ -113,7 +114,7 @@ class AssetEdit extends Component {
           />
           <div className="AssetEdit__buttons-container">
             { deleteButton }
-            <Form.Button className="AssetEdit__submit primary">Submit</Form.Button>
+            <Form.Button className="AssetEdit__submit primary">{ actionString }</Form.Button>
           </div>
         </Form>
       </div>

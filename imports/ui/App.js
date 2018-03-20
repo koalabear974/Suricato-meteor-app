@@ -73,7 +73,7 @@ class App extends Component {
         return <MainComponent />
       } else {
         var ShowComponent = eval(this.state.currentItemComponents.showComponent)
-        return <ShowComponent itemId={this.state.currentItemId} />
+        return <ShowComponent itemId={this.state.currentItemId} handleItemClick={this.handleItemClick}/>
       }
     }
   }

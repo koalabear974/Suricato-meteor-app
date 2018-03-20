@@ -49,3 +49,23 @@
   display: flex;
   justify-content: space-between;
 }
+
+.AssetShow__main {
+  flex: 1;
+}
+
+.AssetShow__times {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5vh;
+}
+
+.AssetShow__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.AssetShow__label {
+  font-weight: bold;
+  display: block;
+}
